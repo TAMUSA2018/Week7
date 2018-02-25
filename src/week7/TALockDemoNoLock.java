@@ -10,48 +10,44 @@ import java.util.concurrent.*;
  *
  * @author ialsmadi
  */
-public class TALockDemo implements Runnable{
-    private static TimeCost timeCost = new TimeCost (new TestAndSetLock ());
-	 private static volatile int myParam;
+public class TALockDemoNoLock {
+    private static TimeCostNoLock timeCost1 = new TimeCostNoLock ();
+	
 	 // private static TimeCost timeCost = new TimeCost (new TTASLock ());
-	public TALockDemo(int k1) {
-           // this.myParam=k1;
-           k1=myParam;
-       // store parameter for later user
-   }
-
-   public void run() {
-         System.out.println("Thread NO...."+ myParam);
-       method ();
-   }
+	
 	 public static void method () {
-             System.out.println("K value before lock is..."+TimeCost.k );
-		 timeCost.lock ();
-                 
+             System.out.println("K value before lock is..."+TimeCostNoLock.k );
+		 timeCost1.lock ();
                  try {
-                     System.out.println("K value in thread..."+ "....timeCost"+".."+TimeCost.k );
+                     System.out.println("K value in lock is..."+TimeCostNoLock.k );
                     Random r = new Random();
 int Low = 1;
 int High = 10000;
 int Result = r.nextInt(High-Low) + Low;
-            
+           //   try{
                Thread.sleep(Result);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
 		 // int a = 10;
-		 timeCost.unlock ();
-                  System.out.println("K value after unlock is..."+TimeCost.k );
+		 timeCost1.unlock ();
+                  System.out.println("K value after unlock is..."+TimeCostNoLock.k );
 	 }
 	
 	 public static void main (String [] args) {
 		 for (int i = 0; i <10; i ++) {
                      System.out.println("Thread...."+ i);
-                     myParam=i;
-			Thread t = new Thread(new TALockDemo(i));
+			 Thread t = new Thread (new Runnable () {
 	         
-				t.start();
-                      /*   try{
+				 @Override
+				 public void run () {
+                                      
+					 method ();
+				 }
+				
+			 });
+			 t.start ();
+                       /*  try{
                          t.join();}
                          catch(Exception ex){
                              

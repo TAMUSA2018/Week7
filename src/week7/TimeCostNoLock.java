@@ -5,45 +5,50 @@
  */
 package week7;
 
-import java.util.concurrent.atomic.AtomicBoolean;
+//import java.util.concurrent.atomic.AtomicBoolean;
+
 import java.util.Random;
+
 
 /**
  *
  * @author ialsmadi
  */
-public class TimeCost implements Lock {
+public class TimeCostNoLock {
 
-	 private final Lock lock;
+//	 private final Lock lock;
          static int k=6;
-         protected AtomicBoolean m_locked;
+  //       protected AtomicBoolean m_locked;
 	
-	 public TimeCost (Lock lock) {
-		 this.lock = lock;
+	 public TimeCostNoLock () {
+//		 this.lock = lock;
 	 }
 	
-	 @Override
+	// @Override
 	 public void lock () {
 		 long start = System.nanoTime ();
-		 lock.lock ();
+//		 lock.lock ();
                  k=k+5;
-                 
+                  
 		 long duration = System.nanoTime () - start;
-		// System.out.println (lock.toString () + "time cost is" + duration + "ns");
-                  System.out.println ( "time cost is" + duration + "ns");
+		 System.out.println ( "time cost is" + duration + "ns");
+                 // System.out.println ( "time cost is" + duration + "ns");
 	 }
-@Override
-          public boolean tryLock() {
+//@Override
+ /*         public boolean tryLock() {
         if(m_locked.get()) {
             return false;
         }
 
         return m_locked.compareAndSet(false, true);
-    }
-	 @Override
+    } 
+//	 @Override
 	 public void unlock () {
-           //    k=k-5;
 		 lock.unlock ();
 	 }
-
+*/
+         public void unlock () {
+          //     k=k-5;
+		 
+	 }
  }

@@ -13,14 +13,16 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
  //Test - set the spin lock, use AtomicBoolean atomic variables to save the state * Each use getAndSet atomic operation to determine the lock state and try to acquire the lock * The disadvantage is that the bottom getAndSet using CAS to achieve, has been modifying the value of shared variables will trigger Cache Consistency Traffic Storm ** /
  public class TestAndSetLock implements Lock {
-	 private AtomicBoolean mutex = new AtomicBoolean (false);
+	 private AtomicBoolean mutex;
           
     
-	
+	public TestAndSetLock(){
+     mutex = new AtomicBoolean (false);
+        }
 	 @Override
 	 public void lock () {
 		 // The getAndSet method will set the mutex variable to true and return the value before the mutex // Return if the mutex was previously false, indicating that the lock was acquired // The getAndSet method is atomic and the mutex atomic variables are visible to all threads while ( mutex.getAndSet (true)) {
-			
+			mutex.set (true);
 		 }
 	 
 /**

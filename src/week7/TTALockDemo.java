@@ -27,6 +27,7 @@ public class TTALockDemo {
 	
 	 public static void main (String [] args) {
 		 for (int i = 0; i <10; i ++) {
+                     System.out.println("Thread...."+ i);
 			 Thread t = new Thread (new Runnable () {
 	
 				 @Override
